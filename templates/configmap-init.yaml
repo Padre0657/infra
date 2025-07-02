@@ -4,6 +4,13 @@ metadata:
   name: {{ .Values.initSqlConfigMapName }}
 data:
   init.sql: |-
+    CREATE TABLE IF NOT EXISTS personnes (
+      id SERIAL PRIMARY KEY,
+      prenom VARCHAR(50),
+      nom VARCHAR(50),
+      fonction VARCHAR(100)
+    );
+
     INSERT INTO personnes (prenom, nom, fonction) VALUES
       ('Alice', 'Dupont', 'Ingénieur'),
       ('Bob', 'Martin', 'Technicien'),
