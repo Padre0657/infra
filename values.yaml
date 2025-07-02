@@ -1,0 +1,26 @@
+replicaCount: 1
+
+image:
+  repository: postgres
+  tag: "15.3"
+  pullPolicy: IfNotPresent
+
+postgresUser: demo_user
+postgresPassword: demo_password
+postgresDatabase: demo_db
+
+service:
+  type: ClusterIP
+  port: 5432
+
+initSqlConfigMapName: init-sql-config
+
+resources: {}
+# tu peux ajuster CPU/memory ici si besoin
+
+persistence:
+  enabled: false
+# Active la persistance des données si tu veux garder la base entre redéploiements
+# storageClass: "standard"
+# accessMode: ReadWriteOnce
+# size: 1Gi
