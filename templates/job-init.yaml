@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: postgres-init-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: init-container
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        env:
+          - name: PGPASSWORD
+            value: {{ .Values.postgresPassword | quote }}
+        command:
+          - psql
+          - -h
+          - postgres-demo
+          - -U
+          - {{ .Values.postgresUser }}
+          - -d
+          - {{ .Values.postgresDatabase }}
+          - -f
+          - /scripts/init.sql
+        volumeMounts:
+          - name: init-sql
+            mountPath: /scripts
+      restartPolicy: OnFailure
+      volumes:
+        - name: init-sql
+          configMap:
+            name: {{ .Values.initSqlConfigMapName }}
