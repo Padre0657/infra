@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.initSqlConfigMapName }}
+data:
+  init.sql: |-
+    INSERT INTO personnes (prenom, nom, fonction) VALUES
+      ('Alice', 'Dupont', 'Ingénieur'),
+      ('Bob', 'Martin', 'Technicien'),
+      ('Claire', 'Durand', 'Chef de projet');
