@@ -30,6 +30,14 @@ spec:
           volumeMounts:
             - name: init-sql
               mountPath: /docker-entrypoint-initdb.d
+          resources:
+            limits:
+              cpu: {{ .Values.resources.limits.cpu | quote }}
+              memory: {{ .Values.resources.limits.memory | quote }}
+            requests:
+              cpu: {{ .Values.resources.requests.cpu | quote }}
+              memory: {{ .Values.resources.requests.memory | quote }}
+
       volumes:
         - name: init-sql
           configMap:
